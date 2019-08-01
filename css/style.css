@@ -1,0 +1,41 @@
+/*.header-img{
+background-image: url("../uhb/image/head4.jpg");
+height: 800px;
+width: 800px;
+background-repeat: no-repeat;
+background-size: contain;
+}*/
+/*============Header============*/
+.header-img img{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+  margin-top: 8px;
+}
+/*=========section=============*/
+.img-section{
+	display: inline-block;
+}
+.text-center h3{
+	margin: 10px;
+}
+.neword{
+	background-color: #D9A97B;
+	color: #fff;
+	margin: 7px;
+}
+
+.bg-light {
+    background-color: #D9A97B!important;
+}
+/*=============fooder=============*/
+footer{
+	position: static;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #D9A97B;
+  color: white;
+  text-align: center;
+}
