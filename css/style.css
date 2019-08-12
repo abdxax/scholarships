@@ -5,13 +5,21 @@ width: 800px;
 background-repeat: no-repeat;
 background-size: contain;
 }*/
+html{
+
+}
 /*============Header============*/
 .header-img img{
 	display: block;
   margin-left: auto;
   margin-right: auto;
   width: 45%;
-  margin-top: 8px;
+  margin-top: 7%;
+}
+
+.bg-light {
+    background-color: #D9A97B!important;
+
 }
 /*=========section=============*/
 .img-section{
@@ -19,6 +27,32 @@ background-size: contain;
 }
 .text-center h3{
 	margin: 10px;
+
+}
+.section-title{
+padding-top: 90px;
+padding-bottom: 50px;
+}
+
+.section-title h3{
+	position: relative;
+	text-align: center;
+	font-weight: 400;
+}
+.section-title h3:after{
+	content: "";
+	position: absolute;
+	bottom: -20px;
+	left: 50%;
+	width: 60px;
+	height: 3px;
+	background-color: #D9A97B;
+	margin-left: -30px;
+}
+.ksa{
+	margin-top: 14%;
+	line-height: 1.9;
+
 }
 .neword{
 	background-color: #D9A97B;
@@ -26,8 +60,22 @@ background-size: contain;
 	margin: 7px;
 }
 
-.bg-light {
-    background-color: #D9A97B!important;
+h3 {
+	font-family: 'Cairo', sans-serif;
+}
+p li{
+	font-family: 'Amiri', serif;
+}
+
+.back{
+	margin-top: 20px;
+	padding: 50px;
+	background-image: url("../uhb/back.png");
+	color: #fff;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+
 }
 /*=============fooder=============*/
 footer{

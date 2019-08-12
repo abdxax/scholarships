@@ -6,7 +6,7 @@
 </head>
 <body >
 <header>
-	<nav class="navbar  navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light">
   <a class="navbar-brand" href="#"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -14,11 +14,11 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" dir="rtl">
-    	<li class="nav-item"><a href="#" class="nav-link">المنحة الدراسية</a></li>
-    	<li class="nav-item"><a href="#" class="nav-link">انواع المنح</a></li>
-    	<li class="nav-item"><a href="#" class="nav-link">مميزات المنح الخارجية</a></li>
-    	<li class="nav-item"><a href="#" class="nav-link">شروط القبول</a></li>
-    	<li class="nav-item"><a href="#" class="nav-link">الوثائق</a></li>
+    	<li class="nav-item"><a href="#sch" class="nav-link">المنحة الدراسية</a></li>
+    	<li class="nav-item"><a href="#type" class="nav-link">انواع المنح</a></li>
+    	<li class="nav-item"><a href="#adv" class="nav-link">مميزات المنح الخارجية</a></li>
+    	<li class="nav-item"><a href="#cond" class="nav-link">شروط القبول</a></li>
+    	<li class="nav-item"><a href="#cer" class="nav-link">الوثائق</a></li>
     	<li class="nav-item"><a href="#" class="nav-link">متابعة الطلب </a></li>
     	<li class="nav-item"><a href="#" class="nav-link">تواصل معنا </a></li>
 
@@ -27,18 +27,20 @@
   </div>
 </nav>
 
-<section>
-    	<div class="header-img">
+<section >
+    	<div class="container">
+    		<div class="header-img">
     		<div class="row">
     			<div class="col-12">
     				<img src="image/logo.jpg" >
     			</div>
     			<div class="col-12">
     				<div class="text-center">
-    					<h3>بوابة المنح الخارجية</h3>
+    					<h3 >بوابة المنح الخارجية</h3>
     				</div>
     			</div>
     		</div>
+    	</div>
     	</div>
     </section>
     
@@ -48,7 +50,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="title-head">
-					<div class="text-center">
+					<div class="section-title">
 						<h3>المملكة العربيه السعودية </h3>
 					</div>
 				</div>
@@ -77,7 +79,7 @@
 				</div>
 
 				<div class="col-md-6 col-sm-12">
-					<div class="text-center">
+					<div class="text-center ksa">
 						<p>
 							تقدم المملكة العربية السعودية منحاً دراسية لغير السعوديين للالتحاق بالجامعات السعودية لأهداف منها  تبليغ رسالة الإسلام، وتعليم اللغة العربية ونشر العلوم وتعزيز التضامن بين المملكة العربية السعودية ودول العالم لخدمة الإنسانية.
 وفي جامعة حفرالباطن تُعنى إدارة المنح -والتي ترتبط بعمادة القبول والتسجيل إدارياً -بمتابعة تنفيذ برامج المنح الدراسية بالجامعة كما تقوم بالتنظيم لعمليات القبول حسب اللوائح المنظمة المعتمدة من قبل وزارة التعليم في قرار مجلس الوزراء رقم(94) وتاريخ 1431/3/28هـ المنظم لضوابط قبول طلاب المنح الدراسية غير السعوديين في مؤسسات التعليم العالي في المملكة
@@ -91,13 +93,26 @@
 	</div>
 </section><!-- end section introducation -->
 
+<section class="back">
+	<div class="container">
+		<div class="row">
+		<div class="col-9 offset-md-2">
+			<p>
+				
+				تقدم جامعة حفرالباطن منحاً دراسيتاً للطلبة المميزين غير السعوديين من مختلف البلدان ليمكنوا من الدراسة مع طلابها السعوديين. وبذلك فإن جامعة حفرالباطن تحرص على المساهمة كمثيلاتها في الجامعات السعودية في تبليغ الرسالة الخالدة للإسلام من خلال  تقديم تعليم جامعي مميز ينمي الروح الإسلامية والمعرفية وتحقيق التنوع في الثقافات المختلفة بين طلابها لترسيخ المفهوم الحقيقي للمجتمع السعودي والإسلامي مع حرصها في تخريج  طلاب مؤهلين ليكونوا كوادر بناءة وعلماء فاعلين في تخصصات هادفة تسعى لمواكبة عصر النهضة والتطور في بلدانهم وتسهم في نشر ثقافة المجتمع السعودي تحقيقاً لإقامة روابط علمية وثقافية ودينية مع المؤسسات التعليمية والهيئات والمؤسسات الإسلامية والعلمية في العالم وتوثيقها لخدمة الإنسان والإسلام. وبذلك فإن إدارة المنح -والتي ترتبط بعمادة القبول والتسجيل إدارياً - تقوم بمتابعة تنفيذ برامج المنح الدراسية بالجامعة كما تقوم بالتنظيم لعمليات القبول حسب اللوائح المنظمة المعتمدة من قبل وزارة التعليم في قرار مجلس الوزراء رقم(94) وتاريخ 28/3/1431هـ المنظم لضوابط قبول طلاب المنح الدراسية غير السعوديين في مؤسسات التعليم العالي في المملكة.
+			</p>
+		</div>
+	</div>
+	</div>
+</section>
+
 <section>
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
 
-				<div class="text-center">
-					<h3>المنحة الدراسية</h3>
+				<div class="section-title">
+					<h3 id="sch">المنحة الدراسية</h3>
 				</div>
 			</div>
 
@@ -114,9 +129,9 @@
 <section>
 	<div class="container">
 		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<h3>أنواع المنح الدراسية </h3>
+			<div class="col-12" id="type">
+				<div class="section-title">
+					<h3 >أنواع المنح الدراسية </h3>
 				</div>
 			</div>
 
@@ -136,9 +151,9 @@
 <section>
 	<div class="container">
 		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<h3>المميزات المقدمة لطالبات المنح الخارجي</h3>
+			<div class="col-12" id="adv">
+				<div class="section-title">
+					<h3 >المميزات المقدمة لطالبات المنح الخارجي</h3>
 				</div>
 			</div>
 
@@ -166,9 +181,9 @@
 <section>
 	<div class="container">
 		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<h3>الوثائق المطلوبة للتقديم على الدراسة بنظام المنح الخارجية</h3>
+			<div class="col-12"i d="cer">
+				<div class="section-title">
+					<h3 >الوثائق المطلوبة للتقديم على الدراسة بنظام المنح الخارجية</h3>
 				</div>
 			</div>
 
@@ -195,8 +210,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<div class="text-center">
-					<h3>شروط القبول للمنح الخارجية</h3>
+				<div class="section-title">
+					<h3 id="cond">شروط القبول للمنح الخارجية</h3>
 				</div>
 			</div>
 
@@ -238,5 +253,6 @@
 <!---js----->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
+<script type="" src="../js/custom.js"></script>
 </body>
 </html>

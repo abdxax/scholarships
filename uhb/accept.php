@@ -57,7 +57,7 @@
 		    </div>
 		    <div class="col-12">
 		    	<div class="text-center">
-		    		<a href="newReq.php" class="btn btn-default neword"  id="alink">تقديم</a>
+		    		<a href="" class="btn btn-default neword"  id="alink" disabled="disabled">تقديم</a>
 		    	</div>
 		    </div>
 
@@ -72,6 +72,7 @@
   if (checkBox.checked == true){
     text.style.cursor = "pointer";
     text.style.opacity = "1";
+    text.href="newReq.php";
   } else {
      text.style.cursor = "not-allowed";
      text.style.opacity = "0.6";
