@@ -10,7 +10,7 @@ class Db
 	{
 		
 		# code...
-		$this->db=new PDO("mysql:host=localhost;dbname=scholarships",$user,$pass);
+		$this->db=new PDO("mysql:host=localhost;dbname=scholarships",$user,$pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
 		//echo"ss";
 	}
 

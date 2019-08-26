@@ -1,12 +1,12 @@
 <?php
 session_start();
-//require "connect/login_op.php";
+require "oop/login.php";
 
-//$lo=new login();
+$lo=new Login("root","");
 if (isset($_POST['sub'])) {
 	$users=strip_tags($_POST['user']);
 	$pass=strip_tags($_POST['pass']);
-	$lo->loginop($users,$pass);
+	$lo->login($users,$pass);
 }
 
 ?>
@@ -55,9 +55,14 @@ if (isset($_POST['sub'])) {
 				</div>
 			</div>
 				<div class="col-3 offset-md-4 loginform">
+					<?php
+                  if (isset($_GET['msg'])) {
+                  	echo $_GET['msg'];
+                  }
+					?>
 					<form method="POST">
 						<div class="form-group">
-							<input type="text" name="user" class="form-control" placeholder="اسم المستخدم ">
+							<input type="email" name="user" class="form-control" placeholder="اسم المستخدم ">
 							
 						</div>
 						<div class="form-group">

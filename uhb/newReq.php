@@ -12,17 +12,10 @@ $brs='';
 if (isset($_POST['subreg'])) {
 	if ($_POST['arnaum1']&&$_POST['arnaum2']&&$_POST['arnaum3']&&$_POST['arnaum4']!='') {
 		$ar_name=strip_tags($_POST['arnaum1'])." ".strip_tags($_POST['arnaum2'])." ".strip_tags($_POST['arnaum3'])." ".strip_tags($_POST['arnaum4']);
-	}
-	else{
-
-	}
-	if ($_POST['ennaum1']&&$_POST['ennaum2']&&$_POST['ennaum3']&&$_POST['ennaum4']!='') {
+		if ($_POST['ennaum1']&&$_POST['ennaum2']&&$_POST['ennaum3']&&$_POST['ennaum4']!='') {
 		$en_name=strip_tags($_POST['ennaum1'])." ".strip_tags($_POST['ennaum2'])." ".strip_tags($_POST['ennaum3'])." ".strip_tags($_POST['ennaum4']);
-	}
-	else{
-		
-	}
-	if(ctype_digit($_POST['govid'])){
+
+		if(ctype_digit($_POST['govid'])){
       $id_gov=strip_tags($_POST['govid']);
 	}
 	else{
@@ -38,14 +31,14 @@ if (isset($_POST['subreg'])) {
 	
 
  		if (strip_tags($_POST['pass'])==strip_tags($_POST['pass2'])) {
-		$pass=password_hash(strip_tags($_POST['pass']), PASSWORD_DEFAULT);
+		$pass=sha1(strip_tags($_POST['pass']));
 		if (empty($ar_name)&&empty($en_name)&&empty($id_gov)&&empty($pass_gov)&&empty($email)&&empty($pass1)&&empty($tepy_cer)&&empty($brs)) {
 		echo"ssss";
 	}
 		else{
 			
 			$studen=new StudentReq('root','');
-		if($studen->register ($email,$pass,$id_gov)){
+		if($studen->register ($email,$pass,$id_gov,$tepy_cer,$brs,$ar_name,$en_name,$pass_gov)){
 
 		}
  		}
@@ -56,6 +49,18 @@ if (isset($_POST['subreg'])) {
 
 
 	}
+
+	}
+	else{
+		
+	}
+
+	}
+	else{
+
+	}
+	
+	
 	
 
 
@@ -188,9 +193,16 @@ if (isset($_POST['subreg'])) {
 
 						<div class="col-sm">
 
-							<select class="form-control" name="typ">
-							<option value="3334">33</option>
-						</select>
+							<select class="form-control text-center" name="typ">
+							<?php
+							$stu=new StudentReq("root","");
+							$sqls=$stu->getQuafType();
+							  foreach ($sqls as $key ) {
+							  	# code...
+							  	echo"<option value=".$key['q_id'].">".$key['name_q']."</option>";
+							  }
+							?>
+						    </select>
 							
 						</div>
 
