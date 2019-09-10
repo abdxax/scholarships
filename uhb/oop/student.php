@@ -94,7 +94,7 @@ class StudentReq extends Db
 		$sql_point->execute(array($id));
 		foreach ($sql_point as $key ) {
 			# code...
-			return $key['points'];
+			return (int)$key['points'];
 		}
 		return 0;
 	}
@@ -116,6 +116,7 @@ class StudentReq extends Db
 		if ($sql_upda->execute(array($county,$great,$dat,'comp',$id))) {
 			# code...
 			$poi=$this->getPoint($id);
+			
 			if($poi==0){
 				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
 				if ($sql_insert->execute(array($id,1))) {
@@ -133,7 +134,56 @@ class StudentReq extends Db
 	}
 
 
+	public function insertPdf($id,$path){
+		$sql_pdf=$this->dbs->prepare("INSERT INTO file (id_gov,file_path,type,status)VALUES(?,?,?,?)");
+		if ($sql_pdf->execute(array($id,$path,'pdf','comp'))) {
+			# code...
+			$point=$this->getPoint($id);
+			if($point==0){
+				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
+				if ($sql_insert->execute(array($id,1))) {
+					# code...
+				}
+				else{
+                     $point++;
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=?,WHERE id_gov=?");
+                     if ($sql_point->execute(array($point,$id))) {
+                     	# code...
+                     }
+				}
 
+		}
+		else{
+			echo "string errors";
+		}
+	}
+}
+
+
+   public function checkFile($id,$type){
+   	$sql_ch=$this->dbs->prepare("SELECT * FROM file where id_gov=? AND type=?");
+   	$sql_ch->execute(array($id,$type));
+   	if ($sql_ch->rowCount()) {
+   		return true;
+   	}
+   	return false;
+   }
+
+   public function addRec($id,$na1,$ph1,$ho1,$na2,$ph2,$ho2){
+   	$sql_rec=$this->dbs->prepare("INSERT INTO recomd (id_gov,name1,job1,phone1,name2,job2,phone2,status)VALUES(?,?,?,?,?,?,?,?)");
+   	if ($sql_rec->execute(array($id,$na1,$ho1,$ph1,$na2,$ho2,$ph2,'comp'))) {
+   		# code...
+   	}
+   	else{
+   		echo "string rec";
+   	}
+   }
+
+   public function chec_rec($id){
+   	$sql_c=$this->dbs->prepare("SELECT * FROM recomd WHERE id_gov=?");
+   	$sql_c->execute(array($id));
+   	return $sql_c;
+   }
 
 
 

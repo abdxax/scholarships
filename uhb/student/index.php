@@ -7,8 +7,8 @@ $ar_name='';
 $en_name='';
 $error='';
 if (isset($_SESSION['id_gov'])) {
-  # code...
-
+  # code..
+  echo  $_SESSION['id_gov'];
   $da=$stu->getDataStudent($_SESSION['id_gov']);
 
   foreach ($da as $key ) {
@@ -53,7 +53,7 @@ if (isset($_POST['save_qua'])) {
   $stu->Updatedqua($_SESSION['id_gov'],$cunt,$great,$dates);
   
 }
-echo "hhhh";
+
 if (isset($_FILES['qua_file'])) {
   # code...
   print_r($_FILES['qua_file']);
@@ -66,10 +66,11 @@ if (isset($_FILES['qua_file'])) {
   $en=end($expr);
   $en_los=strtolower($en);
   if($typ==$en_los){
-    if ($size==4100) {
-      $path="student/";
-      if (move_uploaded_file($file_temp,$path.$name)) {
+    if ($size<= 844500) {
+      $path="file/doc_pdf/".$_SESSION['id_gov']."_".$name_file;
+      if (move_uploaded_file($file_temp,$path)) {
         # code...
+        $stu->insertPdf($_SESSION['id_gov'],$path);
         echo 'uploaded';
       }
       else{
@@ -84,6 +85,51 @@ if (isset($_FILES['qua_file'])) {
   else{
     $error= 'error type';
   }
+}
+
+//video upload 
+if (isset($_FILES['vid_file'])) {
+  # code...
+  print_r($_FILES['vid_file']);
+  $name_file=$_FILES['vid_file']['name'];
+  $size=$_FILES['vid_file']['size'];
+  $type_file=$_FILES['vid_file']['type'];
+  $file_temp=$_FILES['vid_file']['tmp_name'];
+  $typ=["mp4",'mov'];
+  $expr=explode('.',$_FILES['vid_file']['name']);
+  $en=end($expr);
+  $en_los=strtolower($en);
+  if(in_array($en_los, $typ)){
+    if ($size<= 100027160) {
+      $path="file/vid_intru/".$_SESSION['id_gov']."_".$name_file;
+      if (move_uploaded_file($file_temp,$path)) {
+        # code...
+      //  $stu->insertPdf($_SESSION['id_gov'],$path);
+        echo 'uploaded';
+      }
+      else{
+        echo "not upload ";
+      }
+    }
+    else{
+      echo 'size';
+    }
+
+  }
+  else{
+    $error= 'error type';
+  }
+}
+
+//erc
+if (isset($_POST['rec_submot'])) {
+  $name1=strip_tags($_POST['name1']);
+  $job1=strip_tags($_POST['job1']);
+  $phone1=strip_tags($_POST['phone1']);
+  $name2=strip_tags($_POST['name2']);
+  $job2=strip_tags($_POST['job2']);
+  $phone2=strip_tags($_POST['phone2']);
+  $stu->addRec($_SESSION['id_gov'],$name1,$phone1,$job1,$name2,$phone2,$job2);
 }
 ?>
 
@@ -141,7 +187,7 @@ if (isset($_FILES['qua_file'])) {
              <?php 
            $stus=$stu->getStutasInfo($_SESSION['id_gov']);
            foreach ($stus as $key ) {
-              if($key['status']="comp"){
+              if($key['status']=="comp"){
                  
                }
                else{
@@ -609,7 +655,14 @@ if (isset($_FILES['qua_file'])) {
           </div>
 
           <div class="col-10">
-            <form method="POST" enctype="multipart/form-data">
+            <?php
+            if ($stu->checkFile($_SESSION['id_gov'],'pdf')) {
+              # code...
+
+            }
+            else{
+              echo '
+                     <form method="POST" enctype="multipart/form-data">
               <div class="form-group">
                 <input type="file" name="qua_file" class="form-control">
               </div>
@@ -619,6 +672,12 @@ if (isset($_FILES['qua_file'])) {
               </div>
 
             </form>
+              ';
+            }
+
+
+            ?>
+           
           </div>
       </div>
     </div>
@@ -641,13 +700,13 @@ if (isset($_FILES['qua_file'])) {
 
 
         <div class="col-10">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
               <div class="form-group">
-                <input type="file" name="qua_file" class="form-control">
+                <input type="file" name="vid_file" class="form-control">
               </div>
 
               <div class="form-group">
-                <input type="submot" name="save_file" class="btn btn-info" value="حفظ">
+                <input type="submit" name="save_file" class="btn btn-info" value="حفظ">
               </div>
 
             </form>
@@ -675,19 +734,26 @@ if (isset($_FILES['qua_file'])) {
          </div>
 
          <div>
-           
-           <form>
+          <?php
+              $recs=$stu-> chec_rec($_SESSION['id_gov']);
+              if ($recs->rowCount()>0) {
+                # code...
+              }
+              else{
+                echo '
+                     
+           <form method="POST">
              <div class="form-group">
                <label>المعرف الاول </label>
                <div class="row">
                <div class="col-sm">
-                 <input type="text" name="" class="form-control" >
+                 <input type="text" name="phone1" class="form-control" placeholder="رقم التواصل ">
                </div>
                <div class="col-sm">
-                 <input type="text" name="" class="form-control">
+                 <input type="text" name="job1" class="form-control" placeholder="المهنة" >
                </div>
                <div class="col-sm">
-                 <input type="text" name="" class="form-control">
+                 <input type="text" name="name1" class="form-control" placeholder="الاسم">
                </div>
              </div>
              </div>
@@ -696,13 +762,13 @@ if (isset($_FILES['qua_file'])) {
                <label>المعرف الثاني  </label>
                <div class="row">
                <div class="col-sm">
-                 <input type="text" name="" class="form-control" >
+                 <input type="text" name="phone2" class="form-control" placeholder="رقم التواصل ">
                </div>
                <div class="col-sm">
-                 <input type="text" name="" class="form-control">
+                 <input type="text" name="job2" class="form-control"placeholder="المهنة">
                </div>
                <div class="col-sm">
-                 <input type="text" name="" class="form-control">
+                 <input type="text" name="name2" class="form-control"placeholder="الاسم">
                </div>
              </div>
              </div>
@@ -713,6 +779,10 @@ if (isset($_FILES['qua_file'])) {
 
 
            </form>
+                ';
+              }
+          ?>
+          
 
          </div>
        </div>
