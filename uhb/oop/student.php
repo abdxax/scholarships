@@ -68,23 +68,24 @@ class StudentReq extends Db
 	public function UpdatedInfo($gen,$nat_o,$nat_n,$br,$cb,$ccb,$mu,$s,$id){
 		$sql_updated_info=$this->dbs->prepare("UPDATE student_info SET gander=?,nationality_org=?,nationality_now=?,Birthday=?,country_brith=?,city_brith=?,is_musl_from_brith=?,s_m=?,status=? WHERE id_giv=?");
 		if($sql_updated_info->execute(array($gen,$nat_o,$nat_n,$br,$cb,$ccb,$mu,$s,"comp",$id))){
-			$point=$this->getPoint($id);
+			$point=(int)$this->getPoint($id);
 			if($point==0){
 				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
 				if ($sql_insert->execute(array($id,1))) {
 					# code...
 				}
-				else{
+				
+			}
+			else{
                      $point++;
-                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=?,WHERE id_gov=?");
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
                      }
 				}
-			}
-			else{
 
-			}
+		}
+		else{
 
 		}
 	}
@@ -94,7 +95,7 @@ class StudentReq extends Db
 		$sql_point->execute(array($id));
 		foreach ($sql_point as $key ) {
 			# code...
-			return (int)$key['points'];
+			return $key['points'];
 		}
 		return 0;
 	}
@@ -114,23 +115,30 @@ class StudentReq extends Db
 	public function Updatedqua($id,$county,$great,$dat){
 		$sql_upda=$this->dbs->prepare("UPDATE qualification SET country=?,great=?,dates=?,status=? WHERE id_gov=?");
 		if ($sql_upda->execute(array($county,$great,$dat,'comp',$id))) {
-			# code...
-			$poi=$this->getPoint($id);
-			
-			if($poi==0){
+			# code..
+			$point=(int)$this->getPoint($id);
+			if($point==0){
 				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
 				if ($sql_insert->execute(array($id,1))) {
 					# code...
 				}
-				else{
-                     $poi++;
-                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=?,WHERE id_gov=?");
-                     if ($sql_point->execute(array($poi,$id))) {
+				
+			}
+			else{
+                     ++$point;
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
+                     if ($sql_point->execute(array($point,$id))) {
                      	# code...
                      }
+                     else{
+                     	echo "<br>error point";
+                     }
 				}
-			}
-		}
+
+			
+				}
+			
+		
 	}
 
 
@@ -138,24 +146,26 @@ class StudentReq extends Db
 		$sql_pdf=$this->dbs->prepare("INSERT INTO file (id_gov,file_path,type,status)VALUES(?,?,?,?)");
 		if ($sql_pdf->execute(array($id,$path,'pdf','comp'))) {
 			# code...
-			$point=$this->getPoint($id);
+			$point=(int)$this->getPoint($id);
 			if($point==0){
 				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
 				if ($sql_insert->execute(array($id,1))) {
 					# code...
 				}
-				else{
+				
+			}
+			else{
                      $point++;
-                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=?,WHERE id_gov=?");
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
                      }
 				}
 
-		}
-		else{
-			echo "string errors";
-		}
+		
+	}
+	else{
+		return 0;
 	}
 }
 
@@ -173,6 +183,22 @@ class StudentReq extends Db
    	$sql_rec=$this->dbs->prepare("INSERT INTO recomd (id_gov,name1,job1,phone1,name2,job2,phone2,status)VALUES(?,?,?,?,?,?,?,?)");
    	if ($sql_rec->execute(array($id,$na1,$ho1,$ph1,$na2,$ho2,$ph2,'comp'))) {
    		# code...
+   		$point=(int)$this->getPoint($id);
+			if($point==0){
+				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
+				if ($sql_insert->execute(array($id,1))) {
+					# code...
+				}
+				
+			}
+			else{
+                     $point++;
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
+                     if ($sql_point->execute(array($point,$id))) {
+                     	# code...
+                     }
+				}
+
    	}
    	else{
    		echo "string rec";
@@ -186,8 +212,66 @@ class StudentReq extends Db
    }
 
 
+	public function insertviedo($id,$path){
+		$sql_link=$this->dbs->prepare("INSERT INTO file (id_gov,file_path,type,status)VALUES(?,?,?,?)");
+		if ($sql_link->execute(array($id,$path,'video','comp'))) {
+			# code...
+			$point=(int)$this->getPoint($id);
+			if($point==0){
+				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
+				if ($sql_insert->execute(array($id,1))) {
+					# code...
+				}
+				
+			}
+			else{
+                     $point++;
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
+                     if ($sql_point->execute(array($point,$id))) {
+                     	# code...
+                     }
+				}
+
+		}
+		else{
+			echo "string errors";
+		}
+	}
 
 
+    
+    public function addAddress($id,$op1,$phone1,$op2,$phone2,$adds1,$city1,$country1,$adds2,$city2,$country2){
+    	$sql_add=$this->dbs->prepare("INSERT INTO address(id_gov,op1,phone1,op2,phone2,country_mom,country2,city_mom,city2,adds_mom,adds2)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    	if($sql_add->execute(array($id,$op1,$phone1,$op2,$phone2,$country1,$country2,$city1,$city2,$adds1,$adds2))){
+              $point=(int)$this->getPoint($id);
+			if($point==0){
+				$sql_insert=$this->dbs->prepare("INSERT INTO `point` (id_gov,points) VALUES(?,?)");
+				if ($sql_insert->execute(array($id,1))) {
+					# code...
+				}
+				
+			}
+			else{
+                     $point++;
+                     $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
+                     if ($sql_point->execute(array($point,$id))) {
+                     	# code...
+                     }
+				}
 
-	
+    	}
+    	else{
+
+    	}
+    }
+
+    public function checkaddress($id){
+    	$sql_ch=$this->dbs->prepare("SELECT * FROM address WHERE id_gov=?");
+    	$sql_ch->execute(array($id));
+    	if($sql_ch->rowCount()==1){
+    		return true;
+    	}
+    	return false;
+    }
+   	
 }

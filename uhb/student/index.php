@@ -88,37 +88,13 @@ if (isset($_FILES['qua_file'])) {
 }
 
 //video upload 
-if (isset($_FILES['vid_file'])) {
-  # code...
-  print_r($_FILES['vid_file']);
-  $name_file=$_FILES['vid_file']['name'];
-  $size=$_FILES['vid_file']['size'];
-  $type_file=$_FILES['vid_file']['type'];
-  $file_temp=$_FILES['vid_file']['tmp_name'];
-  $typ=["mp4",'mov'];
-  $expr=explode('.',$_FILES['vid_file']['name']);
-  $en=end($expr);
-  $en_los=strtolower($en);
-  if(in_array($en_los, $typ)){
-    if ($size<= 100027160) {
-      $path="file/vid_intru/".$_SESSION['id_gov']."_".$name_file;
-      if (move_uploaded_file($file_temp,$path)) {
-        # code...
-      //  $stu->insertPdf($_SESSION['id_gov'],$path);
-        echo 'uploaded';
-      }
-      else{
-        echo "not upload ";
-      }
-    }
-    else{
-      echo 'size';
-    }
-
-  }
-  else{
-    $error= 'error type';
-  }
+if (isset($_POST['save_file'])) {
+  
+  $links=strip_tags($_POST['link']);
+  $stu->insertviedo($_SESSION['id_gov'],$links);
+}
+else{
+  echo "string";
 }
 
 //erc
@@ -130,6 +106,24 @@ if (isset($_POST['rec_submot'])) {
   $job2=strip_tags($_POST['job2']);
   $phone2=strip_tags($_POST['phone2']);
   $stu->addRec($_SESSION['id_gov'],$name1,$phone1,$job1,$name2,$phone2,$job2);
+}
+
+//ADDRESS 
+if (isset($_POST['address_submit'])) {
+  # code...
+  $ophone1=strip_tags($_POST['ophone1']);
+  $numphone1=strip_tags($_POST['numphone1']);
+  $ophone2=strip_tags($_POST['ophone2']);
+  $numphone2=strip_tags($_POST['numphone2']);
+
+  $adds1=strip_tags($_POST['adds1']);
+  $city1=strip_tags($_POST['city1']);
+  $country1=strip_tags($_POST['country1']);
+  $adds2=strip_tags($_POST['adds2']);
+  $city2=strip_tags($_POST['city2']);
+  $country2=strip_tags($_POST['country2']);
+
+  $stu->addAddress($_SESSION['id_gov'],$ophone1,$numphone1,$ophone2,$numphone2,$adds1,$city1,$country1,$adds2,$city2,$country2);
 }
 ?>
 
@@ -166,7 +160,9 @@ if (isset($_POST['rec_submot'])) {
 <section>
 	<div class="container">
 		<div class="row">
-      <?php echo $error;?>
+      <?php echo $error;
+         echo $stu->getPoint($_SESSION['id_gov']);
+      ?>
 			<div class="col-10">
 				<div class="accordion" id="accordionExample">
   <div class="card fcard">
@@ -377,22 +373,32 @@ if (isset($_POST['rec_submot'])) {
     <div id="conact" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <div class="row">
-          <form>
+          <?php
+           if ($stu->checkaddress($_SESSION['id_gov'])) {
+             # code...
+           }
+           else{
+            echo '
+                <form method="POST">
             <div class="form-group">
               <label>ارقام التواصل </label>
               <div class="row">
-              <div class="col-3">
-                <input type="number" name="phone" class="form-control">
+            
+              <div class="col-7 ">
+                <input type="number" name="numphone1" class="form-control"placeholder="الرقم ">
               </div>
-              <div class="col-7">
-                <input type="number" name="phone" class="form-control">
+                <div class="col-3">
+                <input type="number" name="ophone1" class="form-control" placeholder="مفتاح الدوله ">
               </div>
-              <div class="col-3">
-                <input type="number" name="phone" class="form-control">
+
+              
+              <div class="col-7" style="margin-top: 10px">
+                <input type="number" name="numphone2" class="form-control"placeholder="مالرقم">
               </div>
-              <div class="col-7">
-                <input type="number" name="phone" class="form-control">
+              <div class="col-3" style="margin-top: 10px">
+                <input type="number" name="ophone2" class="form-control"placeholder="مفتاح الدولة ">
               </div>
+
             </div>
             </div>
 
@@ -400,15 +406,15 @@ if (isset($_POST['rec_submot'])) {
               <label>العنوان البريدي باللغه الرسميخ للدوله </label>
              <div class="row">
                 <div class="col-sm">
-                  <input type="text" name="" class="form-control">
+                  <input type="text" name="adds1" class="form-control" placeholder="العنوان">
                  
                 </div>
                  <div class="col-sm">
-                  <input type="text" name="" class="form-control">
+                  <input type="text" name="city1" class="form-control" placeholder="المدينة">
                   
                 </div>
                  <div class="col-sm">
-                  <input type="text" name="" class="form-control">
+                  <input type="text" name="country1" class="form-control" placeholder="الدولة">
                    
                 </div>
              </div>
@@ -418,26 +424,31 @@ if (isset($_POST['rec_submot'])) {
               <label>العنوان باللغة الانجليزيه </label>
              <div class="row">
                 <div class="col-sm">
-                  <input type="text" name="" class ="form-control">
+                  <input type="text" name="adds2" class ="form-control"placeholder="العنوان">
                   
                 </div>
                  <div class="col-sm">
-                  <input type="text" name="" class="form-control">
+                  <input type="text" name="city2" class="form-control" placeholder="المدينة">
                    
                 </div>
                  <div class="col-sm">
-                  <input type="text" name="" class="form-control">
+                  <input type="text" name="country2" class="form-control" placeholder="الدولة">
                   
                 </div>
              </div>
             </div>
 
             <div class="form-group">
-              <input type="submit" name="contact_sub" value="حفظ" class="btn btn-info">
+              <input type="submit" name="address_submit" value="حفظ" class="btn btn-info">
             </div>
 
 
           </form>
+            ';
+           }
+
+          ?>
+         
         </div>
       </div>
     </div>
@@ -668,7 +679,7 @@ if (isset($_POST['rec_submot'])) {
               </div>
 
               <div class="form-group">
-                <input type="submit" name="save_file" class="btn btn-info" value="حفظ">
+                <input type="submit" name="save_file_pdf" class="btn btn-info" value="حفظ">
               </div>
 
             </form>
@@ -696,13 +707,21 @@ if (isset($_POST['rec_submot'])) {
       <div class="card-body">
         <div class="">
           <h3> ارفاق مقطع فيديو (لا يزيد عن ثلاث دقائق) يتحدث الطالب عن نفسه، والحالة الاجتماعية للأسرة، هواياته، وطموحاته، والغرض من الدراسة في المملكة العربية السعودية، مع إظهار كامل لصورته في المقطع أثناء التحدث</h3>
+          <p>الرجاء رفعه و ارفاق الرابط في مكان المخصص </p>
         </div>
 
+        <?php
+            if ($stu->checkFile($_SESSION['id_gov'],'video')) {
+              # code...
 
-        <div class="col-10">
-            <form method="POST" enctype="multipart/form-data">
+            }
+            else{
+              echo '
+                     <div class="col-10">
+            <form method="POST" >
               <div class="form-group">
-                <input type="file" name="vid_file" class="form-control">
+                <!--input type="file" name="vid_file" class="form-control">-->
+                <input type="text" name="link" class="form-control" placeholder="رابط المقطع ">
               </div>
 
               <div class="form-group">
@@ -711,6 +730,12 @@ if (isset($_POST['rec_submot'])) {
 
             </form>
           </div>
+              ';
+            }
+
+
+            ?>
+        
 
       </div>
     </div>
