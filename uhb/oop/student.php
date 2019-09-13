@@ -27,6 +27,9 @@ class StudentReq extends Db
 					$sql_oder_application=$this->dbs->prepare("INSERT INTO order_app (id_gov,status_application)VALUES(?,?)");
 					if ($sql_oder_application->execute(array($id,"not"))) {
 						# code...
+						$subj="جامعة حفرالباطن ";
+						$mess="جامعة حفرالباطن ترحب بكم و تتمنى لكم دوام التوفيق و النجاح في حياتكم العلميه و العمليه و نرجو منكم الدخول اللى حسابكم و اكمال البيانات ";
+						$this->sentEmail($user,$mess,$subj);
 						header("location:login.php");
 					}
 					else{
@@ -81,6 +84,7 @@ class StudentReq extends Db
                      $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
+                     	$this->orderstatus($id,$point);
                      }
 				}
 
@@ -129,6 +133,7 @@ class StudentReq extends Db
                      $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
+                     	$this->orderstatus($id,$point);
                      }
                      else{
                      	echo "<br>error point";
@@ -159,6 +164,7 @@ class StudentReq extends Db
                      $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
+                     	$this->orderstatus($id,$point);
                      }
 				}
 
@@ -196,6 +202,7 @@ class StudentReq extends Db
                      $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
+                     	$this->orderstatus($id,$point);
                      }
 				}
 
@@ -229,6 +236,7 @@ class StudentReq extends Db
                      $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
+                     	$this->orderstatus($id,$point);
                      }
 				}
 
@@ -256,6 +264,7 @@ class StudentReq extends Db
                      $sql_point=$this->dbs->prepare("UPDATE `point` SET points=? WHERE id_gov=?");
                      if ($sql_point->execute(array($point,$id))) {
                      	# code...
+                     	$this->orderstatus($id,$point);
                      }
 				}
 
@@ -272,6 +281,28 @@ class StudentReq extends Db
     		return true;
     	}
     	return false;
+    }
+
+
+    public function orderstatus($id,$point){
+       if ($point==6) {
+       	# code...
+       	$sql=$this->dbs->prepare("UPDATE order_app SET status_application=? WHERE id_gov=?");
+       	$sql->execute(array("Done_application",$id));
+       }
+    }
+
+    public function sentEmail($email,$mess,$subj){
+    	mail($email, $subj, $mess);
+    }
+
+    public function getOrderStatus($id){
+    	$sql=$this->dbs->prepare("SELECT * FROM order_app WHERE id_gov=?");
+    	$sql->execute(array($id));
+    	foreach ($sql as $key) {
+    		# code...
+    		return $key['status_application'];
+    	}
     }
    	
 }

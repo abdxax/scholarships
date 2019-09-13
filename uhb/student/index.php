@@ -821,6 +821,23 @@ if (isset($_POST['address_submit'])) {
 	</div>
 </section>
 
+<!--section for ordre detalis -->
+<?php
+if ($stu->getOrderStatus($_SESSION['id_gov'])=='Done_application') {
+  # code...
+  echo '
+     <div>
+      <div class="row">
+      <table>
+ss
+      </table>
+      </div>
+     </div>
+  ';
+}
+
+?>
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.js"></script>
