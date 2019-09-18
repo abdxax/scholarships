@@ -9,6 +9,7 @@ $pass1='';
 $pass2='';
 $tepy_cer='';
 $brs='';
+$msg="";
 if (isset($_POST['subreg'])) {
 	if ($_POST['arnaum1']&&$_POST['arnaum2']&&$_POST['arnaum3']&&$_POST['arnaum4']!='') {
 		$ar_name=strip_tags($_POST['arnaum1'])." ".strip_tags($_POST['arnaum2'])." ".strip_tags($_POST['arnaum3'])." ".strip_tags($_POST['arnaum4']);
@@ -19,7 +20,7 @@ if (isset($_POST['subreg'])) {
       $id_gov=strip_tags($_POST['govid']);
 	}
 	else{
-
+        $msg='رثم الهوية خطاء ';
 	}
 	$pass_gov=strip_tags($_POST['passid']);
 
@@ -30,8 +31,8 @@ if (isset($_POST['subreg'])) {
 
 	
 
- 		if (strip_tags($_POST['pass'])==strip_tags($_POST['pass2'])) {
-		$pass=sha1(strip_tags($_POST['pass']));
+ 		if (strip_tags($_POST['pass'])==strip_tags($_POST['pass2'])&& strlen(strip_tags($_POST['pass']))>=6) {
+		$pass=sha1('uho'.strip_tags($_POST['pass']));
 		if (empty($ar_name)&&empty($en_name)&&empty($id_gov)&&empty($pass_gov)&&empty($email)&&empty($pass1)&&empty($tepy_cer)&&empty($brs)) {
 		echo"ssss";
 	}
@@ -85,6 +86,13 @@ if (isset($_POST['subreg'])) {
     		<div class="row">
     			<div class="col-12">
     				<img src="image/logo.jpg" >
+
+    			</div>
+    			<div class="col-9 offset-md-2" >
+    				<?php
+                     echo $msg;
+
+                 	?>
     			</div>
     			<div class="col-12">
     				<div class="text-center">
@@ -98,25 +106,25 @@ if (isset($_POST['subreg'])) {
 <section>
 	<div class="container">
 		<div class="row">
-			<div class="col-9">
+			<div class="col-9 offset-md-1">
 				<form method="POST">
 					<div class="form-group">
 						<label>الاسم بالعربي </label>
 						<div class="row">
 							<div class="col-sm">
-							<input type="text" name="arnaum4" class="form-control" placeholder="اسم العائله">
+							<input type="text" name="arnaum4" class="form-control" placeholder="اسم العائله" required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="arnaum3" class="form-control" placeholder="اسم الجد">
+							<input type="text" name="arnaum3" class="form-control" placeholder="اسم الجد" required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="arnaum2" class="form-control" placeholder="اسم الاب">
+							<input type="text" name="arnaum2" class="form-control" placeholder="اسم الاب" required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="arnaum1" class="form-control" placeholder="الاسم الاول">
+							<input type="text" name="arnaum1" class="form-control" placeholder="الاسم الاول" required>
 						</div>
 						</div>
 
@@ -126,19 +134,19 @@ if (isset($_POST['subreg'])) {
 						<label>الاسم بالانجليزي </label>
 						<div class="row">
 							<div class="col-sm">
-							<input type="text" name="ennaum1" class="form-control" placeholder="First Name">
+							<input type="text" name="ennaum1" class="form-control" placeholder="First Name" required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="ennaum2" class="form-control" placeholder="Second Name">
+							<input type="text" name="ennaum2" class="form-control" placeholder="Second Name" required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="ennaum3" class="form-control" placeholder="GrandFather Name">
+							<input type="text" name="ennaum3" class="form-control" placeholder="GrandFather Name" required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="ennaum4" class="form-control" placeholder="Family Name">
+							<input type="text" name="ennaum4" class="form-control" placeholder="Family Name" required>
 						</div>
 						</div>
 
@@ -148,10 +156,10 @@ if (isset($_POST['subreg'])) {
 						<label>رقم الهوية و الجواز </label>
 						<div class="row">
 							<div class="col-sm">
-							<input type="number" name="govid" class="form-control" placeholder="رقم الهويه">
+							<input type="number" name="govid" class="form-control" placeholder="رقم الهويه" required>
 						</div>
 						<div class="col-sm">
-							<input type="فثطف" name="passid" class="form-control" placeholder="رقم الجواز ">
+							<input type="فثطف" name="passid" class="form-control" placeholder="رقم الجواز " required>
 						</div>
 						</div>
 					</div>
@@ -162,7 +170,7 @@ if (isset($_POST['subreg'])) {
 						<label>البريد الالكتروني </label>
 						<div class="row">
 							<div class="col-sm">
-							<input type="eamil" name="email" class="form-control" placeholder="البريد الالكتروني ">
+							<input type="eamil" name="email" class="form-control" placeholder="البريد الالكتروني " required>
 						</div>
 
 						</div>
@@ -173,11 +181,11 @@ if (isset($_POST['subreg'])) {
 						<label>الرقم السري </label>
 						<div class="row">
 							<div class="col-sm">
-							<input type="text" name="pass" class="form-control" placeholder="اعادة ادخال كلمة المرور ">
+							<input type="password" name="pass" class="form-control" placeholder="اعادة ادخال كلمة المرور " required>
 						</div>
 
 						<div class="col-sm">
-							<input type="text" name="pass2" class="form-control" placeholder="كلمة المرور ">
+							<input type="password" name="pass2" class="form-control" placeholder="كلمة المرور " required>
 						</div>
 
 						</div>
@@ -188,12 +196,12 @@ if (isset($_POST['subreg'])) {
 						<label>الشهادة</label>
 						<div class="row">
 							<div class="col-sm">
-						 <input type="text" name="cre" class="form-control" placeholder="النسبة ">
+						 <input type="text" name="cre" class="form-control" placeholder="النسبة " required>
 						</div>
 
 						<div class="col-sm">
 
-							<select class="form-control text-center" name="typ">
+							<select class="form-control text-center" name="typ" required>
 							<?php
 							$stu=new StudentReq("root","");
 							$sqls=$stu->getQuafType();

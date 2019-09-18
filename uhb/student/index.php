@@ -2,6 +2,19 @@
 session_start();
 require "../oop/student.php";
 $stu=new StudentReq("root","");
+if (isset($_SESSION['email'])&& isset($_SESSION['password'])&& isset($_SESSION['role'])
+&& isset($_SESSION['id_gov'])) {
+  # code...
+  if($stu->checkPermison($_SESSION['email'],$_SESSION['password'],$_SESSION['role'],$_SESSION['id_gov'])){
+
+}else{
+  header("location:../index.php");
+}
+
+}else{
+  header("location:../index.php");
+}
+
 $cont=$stu->getAllCountries ();
 $ar_name='';
 $en_name='';
@@ -139,7 +152,7 @@ if (isset($_POST['address_submit'])) {
 	</style>
 </head>
 <body>
-<!--<header>
+<header>
 	<nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light">
   <a class="navbar-brand" href="#"><?php //echo'Hello '; ?></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,12 +162,12 @@ if (isset($_POST['address_submit'])) {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" dir="rtl">
     	
-    	<li class="nav-item"><a href="#" class="nav-link">تسجيل خروج </a></li>
+    	<li class="nav-item"><a href="logout.php" class="nav-link">تسجيل خروج </a></li>
 
     </ul>
     
   </div>
-</nav>-->
+</nav>
 </header>
 
 <section>
@@ -243,15 +256,26 @@ if (isset($_POST['address_submit'])) {
                 <div class="form-group">
                  <label>تاريخ الميلاد </label>
                
-                 <div class="well">
-  <div id="datetimepicker1" class="input-append date">
-    <input data-format="dd/MM/yyyy " type="text" name="brithday"></input>
-    <span class="add-on">
-      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-      </i>
-    </span>
-  </div>
-</div>
+                <div class="row">
+              <div class="col-sm">
+                <select class="form-control" name="year">
+                  <option>1990</option>
+                </select>
+              </div>
+
+              <div class="col-sm">
+                <select class="form-control" name="month">
+                  <option>5</option>
+                </select>
+              </div>
+
+              <div class="col-sm">
+                <select class="form-control" name="day">
+                  <option>6</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
                </div>
 

@@ -305,4 +305,14 @@ class StudentReq extends Db
     	}
     }
    	
+   	public function checkPermison($email,$pass,$role,$id){
+   		$sql=$this->dbs->prepare("SELECT * FROM user WHERE email=? AND pass=? AND id_gov=? AND role_id=?");
+   		$sql->execute(array($email,$pass,$role,$id));
+   		if ($sql->rowCount()==1) {
+   			return true ;
+   		}
+   		
+   			return false;
+   	
+   	}
 }

@@ -37,7 +37,7 @@ class Login extends Db
 	}*/
 
 	public function Login($email,$pass){
-		$pas=sha1($pass);
+		$pas=sha1('uhb'.$pass);
 		$sql=$this->db_login->prepare("SELECT * FROM user WHERE email=? AND pass=?");
 		//$sql->execute(array($email,$pas));
 		//	echo $sql->rowCount();
@@ -51,6 +51,7 @@ class Login extends Db
 					$_SESSION['id_gov']=$key['id_gov'];
 					$_SESSION['email']=$key['email'];
 					$_SESSION['password']=$key['pass'];
+					$_SESSION['role']=$key['role_id'];
 					header("location:student/index.php");
 				}
 

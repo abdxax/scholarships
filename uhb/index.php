@@ -3,6 +3,8 @@
 <head>
 	<?php require "desing/head.html";?>
 	<title></title>
+	<script src="https://kit.fontawesome.com/23b7447de2.js" crossorigin="anonymous"></script>
+  </head>
 </head>
 <body >
 <header>
@@ -14,13 +16,13 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" dir="rtl">
-    	<li class="nav-item"><a href="#sch" class="nav-link">المنحة الدراسية</a></li>
-    	<li class="nav-item"><a href="#type" class="nav-link">انواع المنح</a></li>
-    	<li class="nav-item"><a href="#adv" class="nav-link">مميزات المنح الخارجية</a></li>
-    	<li class="nav-item"><a href="#cond" class="nav-link">شروط القبول</a></li>
-    	<li class="nav-item"><a href="#cer" class="nav-link">الوثائق</a></li>
-    	<li class="nav-item"><a href="#" class="nav-link">متابعة الطلب </a></li>
-    	<li class="nav-item"><a href="#" class="nav-link">تواصل معنا </a></li>
+    	<li class="nav-item"><a href="#sch" class="nav-link"><i class="fas fa-scroll"></i>المنحة الدراسية</a></li>
+    	<li class="nav-item"><a href="#type" class="nav-link"><i class="fas fa-file-signature"></i>انواع المنح</a></li>
+    	<li class="nav-item"><a href="#adv" class="nav-link"><i class="fas fa-plus-square"></i>مميزات المنح الخارجية</a></li>
+    	<li class="nav-item"><a href="#cond" class="nav-link"><i class="fas fa-file-signature"></i>شروط القبول</a></li>
+    	<li class="nav-item"><a href="#cer" class="nav-link"><i class="far fa-file-alt"></i> الوثائق</a></li>
+    	<li class="nav-item"><a href="login.php" class="nav-link"><i class="fas fa-search"></i>متابعة الطلب </a></li>
+    	<li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-phone"></i>تواصل معنا </a></li>
 
     </ul>
     
@@ -72,10 +74,10 @@
 			</div>-->
 			
 				<div class="col-sm-6">
-					<img src="image/head6.jpg" width="250px" height="250px" class="img-section">
+					<img src="image/log.jpg" width="250px" height="250px" class="img-section">
 					<img src="image/head3.png" width="250px" height="250px" class="img-section">
-					<img src="image/mak.jpg" width="250px" height="250px" class="img-section">
-					<img src="image/mad.jpg" width="250px" height="250px" class="img-section">
+					<img src="image/col.jpg" width="250px" height="250px" class="img-section">
+					<img src="image/col3.jpg" width="250px" height="250px" class="img-section">
 				</div>
 
 				<div class="col-md-6 col-sm-12">
@@ -84,7 +86,7 @@
 							تقدم المملكة العربية السعودية منحاً دراسية لغير السعوديين للالتحاق بالجامعات السعودية لأهداف منها  تبليغ رسالة الإسلام، وتعليم اللغة العربية ونشر العلوم وتعزيز التضامن بين المملكة العربية السعودية ودول العالم لخدمة الإنسانية.
 وفي جامعة حفرالباطن تُعنى إدارة المنح -والتي ترتبط بعمادة القبول والتسجيل إدارياً -بمتابعة تنفيذ برامج المنح الدراسية بالجامعة كما تقوم بالتنظيم لعمليات القبول حسب اللوائح المنظمة المعتمدة من قبل وزارة التعليم في قرار مجلس الوزراء رقم(94) وتاريخ 1431/3/28هـ المنظم لضوابط قبول طلاب المنح الدراسية غير السعوديين في مؤسسات التعليم العالي في المملكة
 
-						</p>
+</p>
 					</div>
 				</div>
 			
@@ -97,10 +99,10 @@
 	<div class="container">
 		<div class="row">
 		<div class="col-9 offset-md-2">
-			<p>
+			<h4>
 				
 				تقدم جامعة حفرالباطن منحاً دراسيتاً للطلبة المميزين غير السعوديين من مختلف البلدان ليمكنوا من الدراسة مع طلابها السعوديين. وبذلك فإن جامعة حفرالباطن تحرص على المساهمة كمثيلاتها في الجامعات السعودية في تبليغ الرسالة الخالدة للإسلام من خلال  تقديم تعليم جامعي مميز ينمي الروح الإسلامية والمعرفية وتحقيق التنوع في الثقافات المختلفة بين طلابها لترسيخ المفهوم الحقيقي للمجتمع السعودي والإسلامي مع حرصها في تخريج  طلاب مؤهلين ليكونوا كوادر بناءة وعلماء فاعلين في تخصصات هادفة تسعى لمواكبة عصر النهضة والتطور في بلدانهم وتسهم في نشر ثقافة المجتمع السعودي تحقيقاً لإقامة روابط علمية وثقافية ودينية مع المؤسسات التعليمية والهيئات والمؤسسات الإسلامية والعلمية في العالم وتوثيقها لخدمة الإنسان والإسلام. وبذلك فإن إدارة المنح -والتي ترتبط بعمادة القبول والتسجيل إدارياً - تقوم بمتابعة تنفيذ برامج المنح الدراسية بالجامعة كما تقوم بالتنظيم لعمليات القبول حسب اللوائح المنظمة المعتمدة من قبل وزارة التعليم في قرار مجلس الوزراء رقم(94) وتاريخ 28/3/1431هـ المنظم لضوابط قبول طلاب المنح الدراسية غير السعوديين في مؤسسات التعليم العالي في المملكة.
-			</p>
+</h4>
 		</div>
 	</div>
 	</div>
@@ -211,7 +213,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section-title">
-					<h3 id="cond">شروط القبول للمنح الخارجية</h3>
+					<h3 id="cer">شروط القبول للمنح الخارجية</h3>
 				</div>
 			</div>
 
