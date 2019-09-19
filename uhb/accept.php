@@ -8,6 +8,9 @@
 			opacity: 0.6;
 			cursor: not-allowed;
 		}
+		.text-lti{
+			color: red;
+		}
 	</style>
 </head>
 <body>
@@ -53,7 +56,11 @@
 		    </div>
 
 		    <div class="col-12">
-		    	موافق <input type="checkbox" name="agre"  id="myCheck" onclick="myFunction()">
+		    	<h5>يشترط للتقديم على جامعة حفرالباطن هو <spam class="text-lti h4">إجادة اللغة العربية تحدثاً وكتابتاً </spam></h5>
+		    	<div class="col-11">
+		    		أتعهد على نفسي بأني أجيد التحدث اللغة العربية.<input type="radio" name="acce"  id="ye" value="yes" onclick="myFunction()"><br>
+		    		للأسف ، لا أجيد حالياً التحدث في اللغة العربية.<input type="radio" name="acce"  id="no" value="no" onclick="myFunction()">
+		    	</div>
 		    </div>
 		    <div class="col-12">
 		    	<div class="text-center">
@@ -67,16 +74,29 @@
 
 <script type="text/javascript">
 	function myFunction() {
-  var checkBox = document.getElementById("myCheck");
+		//alert(document.getElementById("ye").value);
+  var checkBox = document.getElementById("ye").checked;
+  var checkBox2 = document.getElementById("no").checked;
+  //alert("ooo");
+  //console.log(checked);
   var text = document.getElementById("alink");
-  if (checkBox.checked == true){
+  if (checkBox){
     text.style.cursor = "pointer";
     text.style.opacity = "1";
     text.href="newReq.php";
-  } else {
+  } else if(checkBox2){
+  text.style.cursor = "not-allowed";
+     text.style.opacity = "0.6";
+     alert("حظاً أوفر ونتمنى أن نراك قريبا بعد إجادتك للغة العربية بالتقديم على نظام القبول في جامعة حفرالباطن ");
+     window.location.href = "index.php";
+  }
+
+  else {
      text.style.cursor = "not-allowed";
      text.style.opacity = "0.6";
   }
+  //var=
+  
 }
 </script>
 </body>

@@ -68,8 +68,21 @@ class StudentReq extends Db
 		return $sql_info;
 	}
 
+	public function getStatusInfo($id){
+		$sql=$this->getStutasInfo($id);
+		foreach ($sql as $key) {
+			if ($key['status']=="comp") {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function UpdatedInfo($gen,$nat_o,$nat_n,$br,$cb,$ccb,$mu,$s,$id){
-		$sql_updated_info=$this->dbs->prepare("UPDATE student_info SET gander=?,nationality_org=?,nationality_now=?,Birthday=?,country_brith=?,city_brith=?,is_musl_from_brith=?,s_m=?,status=? WHERE id_giv=?");
+
+		if (!$this->getStatusInfo($id)) {
+			# code...
+			$sql_updated_info=$this->dbs->prepare("UPDATE student_info SET gander=?,nationality_org=?,nationality_now=?,Birthday=?,country_brith=?,city_brith=?,is_musl_from_brith=?,s_m=?,status=? WHERE id_giv=?");
 		if($sql_updated_info->execute(array($gen,$nat_o,$nat_n,$br,$cb,$ccb,$mu,$s,"comp",$id))){
 			$point=(int)$this->getPoint($id);
 			if($point==0){
@@ -91,6 +104,8 @@ class StudentReq extends Db
 		}
 		else{
            echo "error here";
+		 }
+
 		}
 	}
 
@@ -116,8 +131,21 @@ class StudentReq extends Db
 		return $sql_st;
 	}
 
+ public function checkStatusQua($id){
+ 	$sq=$this->getQuafli($id);
+ 	foreach ($sq as $key) {
+			if ($key['status']=="comp") {
+				return true;
+			}
+		}
+		return false;
+
+ }
+
 	public function Updatedqua($id,$county,$great,$dat){
-		$sql_upda=$this->dbs->prepare("UPDATE qualification SET country=?,great=?,dates=?,status=? WHERE id_gov=?");
+          if (!$this->checkStatusQua($id)) {
+          	# code...
+          	$sql_upda=$this->dbs->prepare("UPDATE qualification SET country=?,great=?,dates=?,status=? WHERE id_gov=?");
 		if ($sql_upda->execute(array($county,$great,$dat,'comp',$id))) {
 			# code..
 			$point=(int)$this->getPoint($id);
@@ -143,6 +171,8 @@ class StudentReq extends Db
 			
 				}
 			
+		
+          }
 		
 	}
 
@@ -245,11 +275,23 @@ class StudentReq extends Db
 			echo "string errors";
 		}
 	}
+    
+     public function checkStatusAddres($id){
+     	$add=$this->checkaddress($id);
+     	foreach ($add as $key) {
+			if ($key['status']=="comp") {
+				return true;
+			}
+		}
+		return false;
 
+     }
 
     
     public function addAddress($id,$op1,$phone1,$op2,$phone2,$adds1,$city1,$country1,$adds2,$city2,$country2){
-    	$sql_add=$this->dbs->prepare("INSERT INTO address(id_gov,op1,phone1,op2,phone2,country_mom,country2,city_mom,city2,adds_mom,adds2)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    	if (!$this->checkStatusAddres($id)) {
+    		# code...
+    		$sql_add=$this->dbs->prepare("INSERT INTO address(id_gov,op1,phone1,op2,phone2,country_mom,country2,city_mom,city2,adds_mom,adds2)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
     	if($sql_add->execute(array($id,$op1,$phone1,$op2,$phone2,$country1,$country2,$city1,$city2,$adds1,$adds2))){
               $point=(int)$this->getPoint($id);
 			if($point==0){
@@ -272,6 +314,8 @@ class StudentReq extends Db
     	else{
 
     	}
+    	}
+    	
     }
 
     public function checkaddress($id){
@@ -292,9 +336,42 @@ class StudentReq extends Db
        }
     }
 
-    public function sentEmail($email,$mess,$subj){
-    	mail($email, $subj, $mess);
+  /*  public function sentEmail($email,$mess,$subj){
+    	function smtpmailer($to, $from, $from_name, $subject, $body)
+    {
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->SMTPAuth = true; 
+ 
+        $mail->SMTPSecure = 'ssl'; 
+        $mail->Host = 'mail.uhbscholarship.rf.gd';
+        $mail->Port = ENTER SMTP PORT NUMBER;  
+        $mail->Username = 'ENTER YOUR MAIL ID';
+        $mail->Password = 'ENTER YOUR EMAIL PASSWORD';   
+   
+   //   $path = 'reseller.pdf';
+   //   $mail->AddAttachment($path);
+   
+        $mail->IsHTML(true);
+        $mail->From="ENTER FROM EMAIL ADDRESS HERE";
+        $mail->FromName=$from_name;
+        $mail->Sender=$from;
+        $mail->AddReplyTo($from, $from_name);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->AddAddress($to);
+        if(!$mail->Send())
+        {
+            $error ="Please try Later, Error Occured while Processing...";
+            return $error; 
+        }
+        else 
+        {
+            $error = "Thanks You !! Your email is sent.";  
+            return $error;
+        }
     }
+    }*/
 
     public function getOrderStatus($id){
     	$sql=$this->dbs->prepare("SELECT * FROM order_app WHERE id_gov=?");

@@ -2,6 +2,7 @@
 session_start();
 require "../oop/student.php";
 $stu=new StudentReq("root","");
+//$msg=
 if (isset($_SESSION['email'])&& isset($_SESSION['password'])&& isset($_SESSION['role'])
 && isset($_SESSION['id_gov'])) {
   # code...
@@ -251,7 +252,7 @@ if (isset($_POST['address_submit'])) {
 	<div class="container">
 		<div class="row">
       <?php echo $error;
-         //echo $stu->getPoint($_SESSION['id_gov']);
+         echo $stu->getPoint($_SESSION['id_gov']);
       ?>
 			<div class="col-10">
 				<div class="accordion" id="accordionExample">
