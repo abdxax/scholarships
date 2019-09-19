@@ -5,10 +5,12 @@ $stu=new StudentReq("root","");
 if (isset($_SESSION['email'])&& isset($_SESSION['password'])&& isset($_SESSION['role'])
 && isset($_SESSION['id_gov'])) {
   # code...
+ // echo "data";
+//echo "ddfddf2".$_SESSION['email']." ".$_SESSION['password'];
   if($stu->checkPermison($_SESSION['email'],$_SESSION['password'],$_SESSION['role'],$_SESSION['id_gov'])){
-
+           echo "ddfddf".$_SESSION['email']." ".$_SESSION['password'];
 }else{
-  header("location:../index.php");
+  //header("location:../index.php");
 }
 
 }else{
@@ -30,13 +32,13 @@ if (isset($_SESSION['id_gov'])) {
     $en_name=$key['name_en'];
   }
 }
-// updated info 
+// updated info
 if (isset($_POST['info_save'])) {
   # code...
   $gender=strip_tags($_POST['gender']);
   $na_now=strip_tags($_POST['na_now']);
   $na_or=strip_tags($_POST['na_or']);
-  $brithday=strip_tags($_POST['brithday']);
+  $brithday=strip_tags($_POST['year']).'/'.strip_tags($_POST['month']).'/'.strip_tags($_POST['day']);
   $brithCount=strip_tags($_POST['brithdaycount']);
   $is_mus=strip_tags($_POST['musl']);
   $m_s=strip_tags($_POST['ms']);
@@ -64,7 +66,7 @@ if (isset($_POST['save_qua'])) {
   $great=$_POST['gra'];
   $dates=$year."-".$month."-".$day;
   $stu->Updatedqua($_SESSION['id_gov'],$cunt,$great,$dates);
-  
+
 }
 
 if (isset($_FILES['qua_file'])) {
@@ -100,15 +102,13 @@ if (isset($_FILES['qua_file'])) {
   }
 }
 
-//video upload 
+//video upload
 if (isset($_POST['save_file'])) {
-  
+
   $links=strip_tags($_POST['link']);
   $stu->insertviedo($_SESSION['id_gov'],$links);
 }
-else{
-  echo "string";
-}
+
 
 //erc
 if (isset($_POST['rec_submot'])) {
@@ -121,7 +121,7 @@ if (isset($_POST['rec_submot'])) {
   $stu->addRec($_SESSION['id_gov'],$name1,$phone1,$job1,$name2,$phone2,$job2);
 }
 
-//ADDRESS 
+//ADDRESS
 if (isset($_POST['address_submit'])) {
   # code...
   $ophone1=strip_tags($_POST['ophone1']);
@@ -147,8 +147,23 @@ if (isset($_POST['address_submit'])) {
 	<title></title>
 	<style type="text/css">
 		.fcard{
-			margin-top: 150px;
+			margin-top: 15%;
 		}
+    .txt{
+      margin-top: 10%;
+      
+    }
+    .tba{
+      direction: rtl;
+      margin-left: 33%
+
+    }
+    .support{
+     
+      margin-top: 3%;
+      padding: 5%;
+     
+    }
 	</style>
 </head>
 <body>
@@ -161,20 +176,82 @@ if (isset($_POST['address_submit'])) {
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" dir="rtl">
-    	
+
     	<li class="nav-item"><a href="logout.php" class="nav-link">تسجيل خروج </a></li>
 
     </ul>
-    
+
   </div>
 </nav>
 </header>
+
+<section class="txt">
+  <?php
+   $sql_info_detals=$stu->getAllInfoStudent($_SESSION['id_gov']);
+   $name_q='';
+   $email_o='';
+   $status_o='';
+   foreach ($sql_info_detals as $key ) {
+     # code...
+    $name_q=$key['name_ar'];
+    $email_o=$key['email'];
+    $status_o=$key['status_application'];
+   }
+  ?>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 ">
+        <div class="text-center">
+          <h5>جامعة حفرالباطن ترحب بكم </h5>
+        </div>
+      </div>
+      <div class="col-5 tba">
+        <table class="table table-striped">
+          <tr>
+            <th>الاسم</th>
+            <td><?php echo $name_q;?></td>
+           
+          </tr>
+
+          <tr>
+            <th>الرقم الوطني</th>
+            <td><?php echo $_SESSION['id_gov'];?></td>
+           
+          </tr>
+
+          <tr>
+            <th>البريد الالكتروني </th>
+            <td><?php echo $email_o;?></td>
+           
+          </tr>
+
+          <tr>
+            <th>حالة الطلب </th>
+            <td>
+              <?php 
+              if($status_o=='not'){
+                echo " الطلب غير مكتمل ";
+              }else{
+                echo "الطلب تحت  الدراسه ";
+              }
+
+              ?>
+            </td>
+           
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section>
 	<div class="container">
 		<div class="row">
       <?php echo $error;
-         echo $stu->getPoint($_SESSION['id_gov']);
+         //echo $stu->getPoint($_SESSION['id_gov']);
       ?>
 			<div class="col-10">
 				<div class="accordion" id="accordionExample">
@@ -182,7 +259,7 @@ if (isset($_POST['address_submit'])) {
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#info" aria-expanded="true" aria-controls="collapseOne">
-         البيانات الشخصيه 
+         البيانات الشخصيه
         </button>
       </h2>
     </div>
@@ -191,13 +268,52 @@ if (isset($_POST['address_submit'])) {
       <div class="card-body">
        <div class="container">
          <div class="row">
-           <div class="col-9">
-           
-             <?php 
+           <div class="col-11">
+
+             <?php
            $stus=$stu->getStutasInfo($_SESSION['id_gov']);
            foreach ($stus as $key ) {
               if($key['status']=="comp"){
-                 
+                 echo'
+                 <div class="col-10">
+                   <table class="table" dir="rtl">
+                    <tr>
+                      <th>الاسم-عربي</th>
+                      <td>'.$key['name_ar'].'</td>
+                    </tr>
+
+                    <tr>
+                      <th>الاسم-انجليزي</th>
+                      <td>'.$key['name_en'].'</td>
+                    </tr>
+
+                    <tr>
+                      <th>تاريخ الميلاة</th>
+                      <td></td>
+                    </tr>
+
+                    <tr>
+                      <th>رقم الهويه</th>
+                      <td></td>
+                    </tr>
+
+                    <tr>
+                      <th>رقم الجواز </th>
+                      <td></td>
+                    </tr>
+
+                    <tr>
+                      <th>الحالة الاجتماعية </th>
+                      <td></td>
+                    </tr>
+
+
+
+
+                   </table>
+                 </div>
+
+                 ';
                }
                else{
                 echo'
@@ -227,7 +343,7 @@ if (isset($_POST['address_submit'])) {
                  <label>الجنسيه الحاليه </label>
                  <div>
                    <select class="form-control" name="na_now">';
-                    
+
 
                      foreach ($cont as $key ) {
                        echo "<option>".$key['ar_name']."</option>";
@@ -242,7 +358,7 @@ if (isset($_POST['address_submit'])) {
                  <label>الجنسية الاصليه  </label>
                  <div>
                    <select class="form-control" name="na_or">';
-                  
+
                       $cont2=$stu->getAllCountries ();
                      foreach ($cont2 as $keys ) {
                        echo "<option>".$keys['ar_name']."</option>";
@@ -255,7 +371,7 @@ if (isset($_POST['address_submit'])) {
 
                 <div class="form-group">
                  <label>تاريخ الميلاد </label>
-               
+
                 <div class="row">
               <div class="col-sm">
                 <select class="form-control" name="year">
@@ -277,13 +393,13 @@ if (isset($_POST['address_submit'])) {
             </div>
           </div>
 
-               </div>
+               
 
                 <div class="form-group">
                  <label>دولة الميلاد </label>
                  <div>
                    <select class="form-control" name="brithdaycount">';
-                      
+
                      $cont3=$stu->getAllCountries ();
                     foreach ($cont3 as $key ) {
                       # code...
@@ -375,7 +491,7 @@ if (isset($_POST['address_submit'])) {
                }
            }
 
-              
+
 
              ?>
            </div>
@@ -389,7 +505,7 @@ if (isset($_POST['address_submit'])) {
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#conact" aria-expanded="true" aria-controls="collapseOne">
-        بيانات التواصل 
+        بيانات التواصل
         </button>
       </h2>
     </div>
@@ -407,16 +523,16 @@ if (isset($_POST['address_submit'])) {
             <div class="form-group">
               <label>ارقام التواصل </label>
               <div class="row">
-            
-              <div class="col-7 ">
+
+              <div class="col-8">
                 <input type="number" name="numphone1" class="form-control"placeholder="الرقم ">
               </div>
                 <div class="col-3">
                 <input type="number" name="ophone1" class="form-control" placeholder="مفتاح الدوله ">
               </div>
 
-              
-              <div class="col-7" style="margin-top: 10px">
+
+              <div class="col-8" style="margin-top: 10px">
                 <input type="number" name="numphone2" class="form-control"placeholder="مالرقم">
               </div>
               <div class="col-3" style="margin-top: 10px">
@@ -431,15 +547,15 @@ if (isset($_POST['address_submit'])) {
              <div class="row">
                 <div class="col-sm">
                   <input type="text" name="adds1" class="form-control" placeholder="العنوان">
-                 
+
                 </div>
                  <div class="col-sm">
                   <input type="text" name="city1" class="form-control" placeholder="المدينة">
-                  
+
                 </div>
                  <div class="col-sm">
                   <input type="text" name="country1" class="form-control" placeholder="الدولة">
-                   
+
                 </div>
              </div>
             </div>
@@ -449,15 +565,15 @@ if (isset($_POST['address_submit'])) {
              <div class="row">
                 <div class="col-sm">
                   <input type="text" name="adds2" class ="form-control"placeholder="العنوان">
-                  
+
                 </div>
                  <div class="col-sm">
                   <input type="text" name="city2" class="form-control" placeholder="المدينة">
-                   
+
                 </div>
                  <div class="col-sm">
                   <input type="text" name="country2" class="form-control" placeholder="الدولة">
-                  
+
                 </div>
              </div>
             </div>
@@ -472,7 +588,7 @@ if (isset($_POST['address_submit'])) {
            }
 
           ?>
-         
+
         </div>
       </div>
     </div>
@@ -484,7 +600,7 @@ if (isset($_POST['address_submit'])) {
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#qua" aria-expanded="true" aria-controls="collapseOne">
-        المؤاهلات 
+        المؤاهلات
         </button>
       </h2>
     </div>
@@ -524,7 +640,7 @@ if (isset($_POST['address_submit'])) {
            <div class="form-group">
             <label> تاريخ الحصول على الشهادة </label>
             <div class="">
-              
+
             </div>
           </div>
 
@@ -535,7 +651,7 @@ if (isset($_POST['address_submit'])) {
                    <p>'.$count_q.'</p>
                  </div>
 
-           
+
           </div>
 
            <div class="form-group">
@@ -559,11 +675,11 @@ if (isset($_POST['address_submit'])) {
             </div>
           </div>
 
-           
+
 
 
         </form>
-  
+
               ';
        }
        else{
@@ -595,7 +711,7 @@ if (isset($_POST['address_submit'])) {
            <div class="form-group">
             <label> تاريخ الحصول على الشهادة </label>
             <div class="">
-              
+
             </div>
           </div>
 
@@ -604,17 +720,17 @@ if (isset($_POST['address_submit'])) {
 
              <div>
                    <select class="form-control" name="conunt">';
-                  
+
                      $cont4=$stu->getAllCountries ();
                      foreach ($cont4 as $key ) {
                        echo "<option>".$key['ar_name']."</option>";
                      }
 
-                    
+
                  echo'  </select>
                  </div>
 
-           
+
           </div>
 
            <div class="form-group">
@@ -666,7 +782,7 @@ if (isset($_POST['address_submit'])) {
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#file" aria-expanded="true" aria-controls="collapseOne">
-        الملفات المرفقه 
+        الملفات المرفقه
         </button>
       </h2>
     </div>
@@ -675,7 +791,7 @@ if (isset($_POST['address_submit'])) {
       <div class="card-body">
         <div class="text-center">
           <h3>المستندات المطلوب ارفاقها الكترونياً عند تقديم طلب القبول على منحة خارجية:</h3>
-          
+
         </div>
 
         <div class="col-10">
@@ -712,7 +828,7 @@ if (isset($_POST['address_submit'])) {
 
 
             ?>
-           
+
           </div>
       </div>
     </div>
@@ -722,7 +838,7 @@ if (isset($_POST['address_submit'])) {
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#viedo" aria-expanded="true" aria-controls="collapseOne">
-         مقطع الفيديو 
+         مقطع الفيديو
         </button>
       </h2>
     </div>
@@ -759,7 +875,7 @@ if (isset($_POST['address_submit'])) {
 
 
             ?>
-        
+
 
       </div>
     </div>
@@ -769,7 +885,7 @@ if (isset($_POST['address_submit'])) {
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#rec" aria-expanded="true" aria-controls="collapseOne">
-        المعرفين  
+        المعرفين
         </button>
       </h2>
     </div>
@@ -790,7 +906,7 @@ if (isset($_POST['address_submit'])) {
               }
               else{
                 echo '
-                     
+
            <form method="POST">
              <div class="form-group">
                <label>المعرف الاول </label>
@@ -831,36 +947,36 @@ if (isset($_POST['address_submit'])) {
                 ';
               }
           ?>
-          
+
 
          </div>
        </div>
       </div>
     </div>
   </div>
-  
+
 </div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<!--section for ordre detalis -->
-<?php
-if ($stu->getOrderStatus($_SESSION['id_gov'])=='Done_application') {
-  # code...
-  echo '
-     <div>
-      <div class="row">
-      <table>
-ss
-      </table>
-      </div>
-     </div>
-  ';
-}
 
-?>
+<section class=" support">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 ">
+        <div class="text-center">
+          <h5>للدعم الفني و الاستفسارات التواصل على :</h5>
+          <p> البريد الالكتروني :</p>
+           <p> االهاتف : 00966137205351</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--section for ordre detalis -->
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

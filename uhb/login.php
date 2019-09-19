@@ -6,7 +6,7 @@ $lo=new Login("root","");
 if (isset($_POST['sub'])) {
 	$users=strip_tags($_POST['user']);
 	$pass=strip_tags($_POST['pass']);
-	$lo->login($users,$pass);
+	$msg=$lo->login($users,$pass);
 }
 
 ?>
@@ -56,9 +56,12 @@ if (isset($_POST['sub'])) {
 			</div>
 				<div class="col-3 offset-md-4 loginform">
 					<?php
-                  if (isset($_GET['msg'])) {
-                  	echo $_GET['msg'];
-                  }
+                    if (!empty($msg)) {
+                    	# code...
+                    	echo '<div class="alert alert-danger text-center" style="margin-top: 8%;">'.$msg.'</div>';
+                    }
+                  	
+                  
 					?>
 					<form method="POST">
 						<div class="form-group">

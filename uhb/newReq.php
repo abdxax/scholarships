@@ -11,6 +11,7 @@ $tepy_cer='';
 $brs='';
 $msg="";
 if (isset($_POST['subreg'])) {
+	//$msg="button click ";
 	if ($_POST['arnaum1']&&$_POST['arnaum2']&&$_POST['arnaum3']&&$_POST['arnaum4']!='') {
 		$ar_name=strip_tags($_POST['arnaum1'])." ".strip_tags($_POST['arnaum2'])." ".strip_tags($_POST['arnaum3'])." ".strip_tags($_POST['arnaum4']);
 		if ($_POST['ennaum1']&&$_POST['ennaum2']&&$_POST['ennaum3']&&$_POST['ennaum4']!='') {
@@ -20,7 +21,7 @@ if (isset($_POST['subreg'])) {
       $id_gov=strip_tags($_POST['govid']);
 	}
 	else{
-        $msg='رثم الهوية خطاء ';
+        //$msg='رثم الهوية خطاء ';
 	}
 	$pass_gov=strip_tags($_POST['passid']);
 
@@ -32,7 +33,7 @@ if (isset($_POST['subreg'])) {
 	
 
  		if (strip_tags($_POST['pass'])==strip_tags($_POST['pass2'])&& strlen(strip_tags($_POST['pass']))>=6) {
-		$pass=sha1('uho'.strip_tags($_POST['pass']));
+		$pass=sha1('uhb'.strip_tags($_POST['pass']));
 		if (empty($ar_name)&&empty($en_name)&&empty($id_gov)&&empty($pass_gov)&&empty($email)&&empty($pass1)&&empty($tepy_cer)&&empty($brs)) {
 		echo"ssss";
 	}
@@ -40,12 +41,13 @@ if (isset($_POST['subreg'])) {
 			
 			$studen=new StudentReq('root','');
 		if($studen->register ($email,$pass,$id_gov,$tepy_cer,$brs,$ar_name,$en_name,$pass_gov)){
-
+           //header("location:login.php");
 		}
  		}
 	}
 	else{
-
+      $msg="كلمة المرور تجب تكون من ٦ خانات و اكثر ";
+      //setcookie('')
 	}
 
 
@@ -90,7 +92,13 @@ if (isset($_POST['subreg'])) {
     			</div>
     			<div class="col-9 offset-md-2" >
     				<?php
-                     echo $msg;
+    				if(!empty($msg)){
+                     echo '
+                     <div class="col-8 offset-md-1">
+                     <div class="alert alert-danger text-center" style="margin-top: 8%;">'.$msg.'</div>
+                     </div>
+                     ';
+                 }
 
                  	?>
     			</div>

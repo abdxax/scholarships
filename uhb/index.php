@@ -256,5 +256,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
 <script type="" src="../js/custom.js"></script>
+<script type="" src="../js/setpform.js"></script>
 </body>
 </html>

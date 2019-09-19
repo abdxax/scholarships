@@ -42,7 +42,7 @@ class Login extends Db
 		//$sql->execute(array($email,$pas));
 		//	echo $sql->rowCount();
 		if($sql->execute(array($email,$pas))){
-			echo $sql->rowCount();
+			//echo $sql->rowCount();
 			if($sql->rowCount()==1){
 				foreach ($sql as $key ) {
 					# code...
@@ -58,7 +58,7 @@ class Login extends Db
 				}
 			}
 			else{
-				echo "error2";
+				return "البريد الالكتروني او كلمة المرور غير صحيحه ";
 			}
 
 		}

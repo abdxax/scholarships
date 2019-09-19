@@ -90,7 +90,7 @@ class StudentReq extends Db
 
 		}
 		else{
-
+           echo "error here";
 		}
 	}
 
@@ -308,11 +308,20 @@ class StudentReq extends Db
    	public function checkPermison($email,$pass,$role,$id){
    		$sql=$this->dbs->prepare("SELECT * FROM user WHERE email=? AND pass=? AND id_gov=? AND role_id=?");
    		$sql->execute(array($email,$pass,$role,$id));
-   		if ($sql->rowCount()==1) {
+   		$count_rows=$sql->rowCount();
+   		if ($count_rows==1) {
    			return true ;
    		}
    		
    			return false;
    	
    	}
+
+   	public function getAllInfoStudent($id){
+     $sql=$this->dbs->prepare("SELECT * FROM user LEFT JOIN student_info ON user.id_gov=student_info.id_giv 
+     	LEFT JOIN order_app ON user.id_gov=order_app.id_gov WHERE user.id_gov=?");
+     $sql->execute(array($id));
+     return $sql;
+   	}
+
 }
